@@ -36,7 +36,6 @@ def delete_user(user_id):
         abort(404)
 
     user.delete()
-    storage.save()
 
     return jsonify({}), 200
 
