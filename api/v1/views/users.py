@@ -54,7 +54,7 @@ def create_user():
     else:
         user = User(**json_user)
         user.save()
-        return (user.to_dict()), 201
+        return jsonify(user.to_dict()), 201
 
 
 @app_views.route('user/<user_id>',
