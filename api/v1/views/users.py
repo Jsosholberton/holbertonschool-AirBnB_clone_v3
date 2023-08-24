@@ -17,7 +17,7 @@ def all_users():
                             storage.all(User).values())))
 
 
-@app_views.route('user/<user_id>',
+@app_views.route('users/<user_id>',
                  methods=['GET'], strict_slashes=False)
 def user(user_id):
     """Return information json of a user"""
@@ -27,7 +27,7 @@ def user(user_id):
         abort(404)
 
 
-@app_views.route('user/<user_id>',
+@app_views.route('users/<user_id>',
                  methods=['DELETE'], strict_slashes=False)
 def delete_user(user_id):
     """Delete a user and return a empty dictionary"""
@@ -40,7 +40,7 @@ def delete_user(user_id):
     return jsonify({}), 200
 
 
-@app_views.route('/user', methods=['POST'], strict_slashes=False)
+@app_views.route('/users', methods=['POST'], strict_slashes=False)
 def create_user():
     """Create a new user"""
     json_user = request.get_json()
@@ -56,7 +56,7 @@ def create_user():
         return jsonify(user.to_dict()), 201
 
 
-@app_views.route('user/<user_id>',
+@app_views.route('users/<user_id>',
                  methods=['PUT'], strict_slashes=False)
 def update_user(user_id):
     """ Updates a user by id """
