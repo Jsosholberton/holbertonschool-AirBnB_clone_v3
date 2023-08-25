@@ -6,9 +6,11 @@ MODULE NAME: places_reviews
 """
 from models.review import Review
 from models.place import Place
+from models.user import User
 from models import storage
 from api.v1.views import app_views
 from flask import abort, jsonify, request
+
 
 @app_views.route('places/<place_id>/reviews',
                  methods=['GET'], strict_slashes=False)
@@ -61,16 +63,18 @@ def create_review(place_id):
         abort(400, "Not a JSON")
     elif "user_id" not in json_review.keys():
         abort(400, "Missing user_id")
-    
-    user = storage.get(user, json_review["user_id"])
+
+    user = storage.get(User, json_review["user_id"])
     if user is None:
         abort(404)
     elif "text" not in json_review.keys():
         abort(400, "Missing text")
     else:
+        json_review["place_id"] = place_id
         review = Review(**json_review)
         review.save()
         return jsonify(review.to_dict()), 201
+
 
 @app_views.route('reviews/<review_id>',
                  methods=['PUT'], strict_slashes=False)
