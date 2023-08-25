@@ -22,21 +22,22 @@ def places_by_city(city_id):
         abort(404)
     elif request.method == 'POST':
         if city is None:
-            my_dict = request.get_json()
-            if my_dict is None:
-                abort(400, 'Not a JSON')
-            if my_dict.get("user_id") is None:
-                abort(400, 'Missing user_id')
-            if my_dict.get("name") is None:
-                abort(400, 'Missing name')
-
-            user = storage.get(User, my_dict.get("user_id"))
-
-            if user is None:
-                place = Place(**my_dict)
-                place.save()
-                return jsonify(place.to_dict()), 201
             abort(404)
+        request_data = request.get_json()
+        if request_data is None:
+            abort(400, 'Not a JSON')
+
+        user = storage.get(User,request_data["user_id"])
+        if user is None:
+            abort(404)
+        if "name" not in request_data:
+            abort(400,"Missing name")
+
+        new_place = Place(**request_data)
+        new_place.save()
+
+        return jsonify(new_place.to_dict()), 201
+        
 
 
 @app_views.route('/places/<string:place_id>',
