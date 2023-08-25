@@ -14,17 +14,13 @@ from models.place import Place
                  methods=['GET', 'POST'], strict_slashes=False)
 def places_by_city(city_id):
     """retrieve places based on city_id"""
-
+    city = storage.get(City, city_id)
     if request.method == 'GET':
-        city = storage.get(City, city_id)
-
         if city:
             places = [place.to_dict() for place in city.places]
             return jsonify(places)
         abort(404)
     elif request.method == 'POST':
-        city = storage.get(City, city_id)
-
         if city:
             my_dict = request.get_json()
             if my_dict is None:
