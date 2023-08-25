@@ -21,7 +21,7 @@ def places_by_city(city_id):
             return jsonify(places)
         abort(404)
     elif request.method == 'POST':
-        if city:
+        if city is None:
             my_dict = request.get_json()
             if my_dict is None:
                 abort(400, 'Not a JSON')
@@ -32,7 +32,7 @@ def places_by_city(city_id):
 
             user = storage.get(User, my_dict.get("user_id"))
 
-            if user:
+            if user is None:
                 place = Place(**my_dict)
                 place.save()
                 return jsonify(place.to_dict()), 201
