@@ -75,7 +75,9 @@ test_db_storage.py'])
 
     def test_db_storange_method_count(self):
         """Test for count method"""
-        self.assertTrue(type(models.storage.count(State) == int))
+        instance = State({"name": "test"})
+        models.storage.save()
+        self.assertTrue(type(models.storage.count(instance)) == int)
 
 
 class TestFileStorage(unittest.TestCase):
