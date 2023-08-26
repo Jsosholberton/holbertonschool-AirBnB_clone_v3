@@ -44,7 +44,6 @@ class FileStorage:
             return count
         return None
 
-
     def all(self, cls=None):
         """returns the dictionary __objects"""
         if cls is not None:
