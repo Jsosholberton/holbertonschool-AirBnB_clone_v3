@@ -69,7 +69,7 @@ test_db_storage.py'])
 
     def test_db_storange_method_get(self):
         """Test for get method"""
-        instance = State()
+        instance = State({"name": "test"})
         instance.save()
         self.assertIsInstance(models.storage.get(instance, instance.id), State)
 
