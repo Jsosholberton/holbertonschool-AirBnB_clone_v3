@@ -71,7 +71,7 @@ test_db_storage.py'])
         """Test for get method"""
         instance = State({"name": "test"})
         models.storage.save()
-        self.assertIsInstance(models.storage.get(instance, instance.id), State)
+        self.assertIsInstance(models.storage.get(State, instance.id), State)
 
     def test_db_storange_method_count(self):
         """Test for count method"""
